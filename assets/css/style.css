@@ -18,7 +18,7 @@ main {
 
 .aside-div {
   width: 300px;
-  height: 100%;
+  height: fit-content;
   margin: 0px;
 }
 
@@ -45,7 +45,7 @@ h3 {
   border-bottom: 1px solid darkgray;
 }
 
-.search-btn {
+#search-btn {
   width: 300px;
   height: 30px;
   font-size: 18px;
@@ -55,13 +55,13 @@ h3 {
   border-radius: 5px;
 }
 
-.current-weather {
+.weather {
   width: 1000px;
-  height: 500px;
+  height: 200px;
   margin: 20px;
 }
 
-.current-weather-border {
+.current-weather {
   padding: 10px;
   border: 1px solid black;
 }
@@ -76,7 +76,7 @@ h4 {
   margin-bottom: 10px;
 }
 
-ul {
+.row {
   flex-wrap: wrap;
   justify-content: space-between;
   display: flex;
@@ -87,7 +87,6 @@ ul {
 .card {
   width: 180px;
   margin-bottom: 20px;
-  list-style: none;
   background-color: rgb(50, 50, 87);
   color: white;
   padding: 8px;

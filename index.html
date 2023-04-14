@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
   <title>Weather Dashboard City Search</title>
   <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
+
 <body>
   <header>
     <h1>Weather Dashboard</h1>
@@ -17,68 +19,30 @@
       <aside>
         <h3>Search for a City:</h3>
         <input type="text" class="search-input" />
-          <div class="btn-spacing">
-            <button type="submit" class="search-btn">Search</button>
-          </div>
+        <div class="btn-spacing">
+          <button type="submit" id="search-btn">Search</button>
+        </div>
+        <div id="searched-cities"></div>
       </aside>
     </div>
 
-    <div class="current-weather">
-      <div class="current-weather-border">
-        <h3 class="city-date">City Name (Date)</h3>
-        <p>Temp:</p>
-        <p>Wind:</p>
-        <p>Humidity:</p>
+    <div class="weather">
+      <div class="current-weather">
+        <h3 class="city-date"></h3>
+        <p id="temp"></p>
+        <p id="wind"></p>
+        <p id="humidity"></p>
       </div>
-
+      
       <div class="forecast">
         <h4>5-Day Forecast:</h4>
-
-        <ul>
-          <li class="card">
-            <h5>Day 1</h5>
-            <img src="">
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity</p>
-          </li>
-
-          <li class="card">
-            <h5>Day 2</h5>
-            <img src="">
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity</p>
-          </li>
-
-          <li class="card">
-            <h5>Day 3</h5>
-            <img src="">
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity</p>
-          </li>
-
-          <li class="card">
-            <h5>Day 4</h5>
-            <img src="">
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity</p>
-          </li>
-
-          <li class="card">
-            <h5>Day 5</h5>
-            <img src="">
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity</p>
-          </li>
-        </ul>
+        <div class="row"></div>
       </div>
     </div>
   </main>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
