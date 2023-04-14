@@ -31,14 +31,17 @@ async function getWeatherAPI() {
     })
     .then(function (data) {
       console.log(data)
-      var cityDate = document.querySelector('.city-date')
+      var cityNameEl = document.getElementById('city-name')
+      var currentDateEl = document.getElementById('current-date')
+      var weatherIconEl = document.getElementById('weather-icon')
       var tempEl = document.getElementById('temp')
       var windEl = document.getElementById('wind')
       var humidityEl = document.getElementById('humidity')
 
-      var currentDate = dayjs().format('M/D/YYYY')
-
-      cityDate.textContent = data.name + ' ' + currentDate
+      cityNameEl.textContent = data.name
+      currentDateEl.textContent = dayjs().format('M/D/YYYY')
+      weatherIconEl.src = 'https://openweathermap.org/img/w/' + data.weather[0].icon + '.png'
+      weatherIconEl.alt = data.weather[0].description
       tempEl.textContent = 'temperature: ' + data.main.temp
       windEl.textContent = 'wind: ' + data.wind.speed
       humidityEl.textContent = 'humidity: ' + data.main.humidity
@@ -55,16 +58,27 @@ async function getWeatherAPI() {
 
           if(testTime === '12:00:00'){
             var cardDiv = document.createElement('div')
+            var dateEl = document.createElement('p')
+            var forecastIcon = document.createElement('img')
             var tempEl = document.createElement('p')
             var windEl = document.createElement('p')
             var humidityEl = document.createElement('p')
 
+            // var forecastDate = dayjs(data.list[i].dt_txt).format('M/D/YYYY')
+
+            dateEl.textContent = dayjs(data.list[i].dt_txt).format('M/D/YYYY')
+            forecastIcon.src = 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png'
+            forecastIcon.alt = data.list[i].weather[0].description
             tempEl.textContent = 'temperature: ' + data.list[i].main.temp
             windEl.textContent = 'wind: ' + data.list[i].wind.speed
             humidityEl.textContent = 'humidity: ' + data.list[i].main.humidity
 
             cardDiv.setAttribute('class', 'card')
+            dateEl.setAttribute('class', 'forecast-icon')
+            forecastIcon.setAttribute('class', 'forecast-icon')
 
+            cardDiv.appendChild(dateEl)
+            cardDiv.appendChild(forecastIcon)
             cardDiv.appendChild(tempEl)
             cardDiv.appendChild(windEl) 
             cardDiv.appendChild(humidityEl)
@@ -74,22 +88,6 @@ async function getWeatherAPI() {
       })
     })
 }
-
-function displayForecastDates(){
-  var date = dayjs()
-  var card = document.querySelectorAll('.card')
-
-  card.forEach(card => {
-    for(let i=0; i < 5; i++) {
-      var nextDate = date.add(i, 'day')
-      var dateEl = document.createElement('p')
-      dateEl.textContent = nextDate.format('M/D/YYYY')
-      card.appendChild(dateEl)
-    }
-    console.log('forecast date: ', card)
-  })
-}
-displayForecastDates()
 
 searchBtn.addEventListener('click', getWeatherAPI)
 

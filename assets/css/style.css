@@ -57,13 +57,18 @@ h3 {
 
 .weather {
   width: 1000px;
-  height: 200px;
+  height: fit-content;
   margin: 20px;
 }
 
 .current-weather {
   padding: 10px;
   border: 1px solid black;
+}
+
+.city-date-icon,
+.forecast-icon {
+  display: inline-block;
 }
 
 .forecast {
@@ -90,8 +95,4 @@ h4 {
   background-color: rgb(50, 50, 87);
   color: white;
   padding: 8px;
-}
-
-h5 {
-  margin-top: 2px;
 }
