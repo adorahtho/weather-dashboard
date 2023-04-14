@@ -20,7 +20,7 @@ function inputSubmit(event) {
 async function getWeatherAPI() {
 
   var city = searchInput.value.trim()
-  var geoResponse = await fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey)
+  var geoResponse = await fetch('https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey)
   var [{lat, lon}] = await geoResponse.json()
   var queryUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + APIKey
   var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + APIKey
