@@ -45,7 +45,19 @@ h3 {
   border-bottom: 1px solid darkgray;
 }
 
-#search-btn {
+#searched-cities {
+  list-style: none;
+  padding-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: fit-content;
+}
+
+.buttonLi {
+  height: fit-content;
+}
+
+.search-btn {
   width: 300px;
   height: 30px;
   font-size: 18px;

@@ -1,25 +1,16 @@
 var APIKey = '47638e5ce4e889ab7f93e80381f9d50f'
 var searchedCity = document.getElementById('searched-cities')
-var searchBtn = document.getElementById('search-btn')
+var searchBtn = document.querySelector('.search-btn')
 var searchInput = document.querySelector('.search-input')
 var city, lat, lon, queryUrl, forecastUrl
-
-function inputSubmit(event) {
-  event.preventDefault()
-
-  var city = searchInput.value.trim()
-
-  if (city) {
-    getWeatherAPI(city)
-
-    searchedCity.textContent = ''
-    searchInput.value = ''
-  }
-}
 
 async function getWeatherAPI() {
 
   var city = searchInput.value.trim()
+  if (!city) {
+    return
+  }
+
   var geoResponse = await fetch('https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + APIKey)
   var [{lat, lon}] = await geoResponse.json()
   var queryUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + APIKey
@@ -29,7 +20,7 @@ async function getWeatherAPI() {
     .then(function (response) {
       return response.json()
     })
-    .then(function (data) {
+    .then(function(data) {
       console.log(data)
       var cityNameEl = document.getElementById('city-name')
       var currentDateEl = document.getElementById('current-date')
@@ -45,6 +36,10 @@ async function getWeatherAPI() {
       tempEl.textContent = 'temperature: ' + data.main.temp
       windEl.textContent = 'wind: ' + data.wind.speed
       humidityEl.textContent = 'humidity: ' + data.main.humidity
+
+      cities.push(city)
+      storeCities()
+      createButtons()
     })
     .then(()=> {
       fetch(forecastUrl)
@@ -53,6 +48,9 @@ async function getWeatherAPI() {
       })
       .then(function(data){
         console.log(data)
+
+        document.querySelector('.row').innerHTML = ''
+
         for(var i=0; i < data.list.length; i++){
           var testTime = data.list[i].dt_txt.split(' ')[1]
 
@@ -63,8 +61,6 @@ async function getWeatherAPI() {
             var tempEl = document.createElement('p')
             var windEl = document.createElement('p')
             var humidityEl = document.createElement('p')
-
-            // var forecastDate = dayjs(data.list[i].dt_txt).format('M/D/YYYY')
 
             dateEl.textContent = dayjs(data.list[i].dt_txt).format('M/D/YYYY')
             forecastIcon.src = 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png'
@@ -89,9 +85,52 @@ async function getWeatherAPI() {
     })
 }
 
-searchBtn.addEventListener('click', getWeatherAPI)
+var cities = []
 
+function init() {
 
-//need to have previous search buttons populate 
-//add date on each day for the 5 day forecast
-//5 day forecast display in a row
+  var storedCities = JSON.parse(localStorage.getItem('cities')) || [] 
+
+  if(storedCities !== null){
+    cities = storedCities
+  }
+  createButtons()
+}
+
+window.onload = init
+
+function createButtons(){
+
+  searchedCity.innerHTML = ''
+
+  for(var i=0; i<cities.length; i++){
+    var city = cities[i]
+
+    if (cities.indexOf(city) === i){
+
+      var li = document.createElement('li')
+      li.setAttribute('class', 'buttonLi')
+
+      var button = document.createElement('button')
+      button.setAttribute('class', 'search-btn')
+      button.setAttribute('data-index', i)
+      button.textContent = city
+
+      button.addEventListener('click', function (event) {
+        var cityName = event.target.textContent
+        if(cityName){
+          getWeatherAPI(cityName)
+        }
+      })
+      li.appendChild(button)
+      searchedCity.appendChild(li)
+    }
+  }
+}
+
+function storeCities(){
+  localStorage.setItem('cities', JSON.stringify(cities))
+}
+
+searchBtn.addEventListener('click', function(event) {
+  getWeatherAPI(event)})
