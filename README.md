@@ -21,7 +21,7 @@ The weather dashboard displays the current weather and the 5-day forecast for th
 2. Get a API Key from: https://openweathermap.org/forecast5 
 3. Create a variable for the API Key in the script.js file.
 ## Deployed Link
-https://thoak90codes.github.io/weather-dashboard/
+https://adorahtho.github.io/weather-dashboard/
 
 ## Author & Acknowledgements
 
